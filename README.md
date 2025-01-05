@@ -29,3 +29,17 @@ cd tracker
 4. Collect annotation data from annotators - annotated data will be saved in the `events/` folder (hidden) under working directory
 
 
+#### 20250105 1325 PT
+
+Based on the original code, I mainly added lines into the monitor.py to prevent multiple press events recorded when press like Ctrl + A format hotkey. Without these 
+```
+#Yuantsy Modification
+# if key is already in pressed set, ignore repeated press
+if key in self.currently_pressed_keys:
+    return 
+# Otherwise, mark it as pressed
+self.currently_pressed_keys.add(key)
+#Yuantsy Modifcation End
+```
+The Ctrl + A will bring us mutiple press ctrl events which is unnecessary. 
+
