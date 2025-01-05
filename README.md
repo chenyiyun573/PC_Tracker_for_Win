@@ -1,32 +1,5 @@
-# PC Agent: While You Sleep, AI Works - A Cognitive Journey into Digital World
-
-<p align="center">
-  📄 <a href="https://arxiv.org/abs/2412.17589" target="_blank">Paper</a> &nbsp; | &nbsp;
-  🌐 <a href="https://gair-nlp.github.io/PC-Agent" target="_blank">Website</a> &nbsp; | &nbsp;
-  📘 <a href="https://mp.weixin.qq.com/s/2rAfmcRu7lPDg1uUv-qFCQ" target="_blank">机器之心</a>
-</p>
-
-<p align="center">
-  <img src="./assets/animation.png" width="70%" alt="animation">
-</p>
-
-## Demo
-
-Check out our demo of PC Agent autonomously controlling a computer to complete complex tasks involving dozens of steps!
-
-https://github.com/user-attachments/assets/0b7613c6-e3b1-41cf-86d3-0e7a828fe863
-
-## Introduction
-
-**PC Agent** introduces a novel framework to empower autonomous digital agents through **human cognition transfer**. 
-This transfer is implemented through three key components: 
-1. **PC Tracker**, the first lightweight infrastructure for large-scale human-computer interaction data collection;
-2. A **Cognition Completion** postprocess pipeline that transforms raw interaction data into cognitive trajectories;
-3. A multi-agent system combining a planning agent for decision-making with a grounding agent for robust visual grounding.
-
-![overview](./assets/overview.png)
-
-## Quick Start
+This repo is heavily based on the repo of the paper PC Agent.
+I am using this repo only for its PC tracker.exe now. 
 
 ### Setup
 
@@ -55,40 +28,4 @@ cd tracker
 3. Distribute to annotators
 4. Collect annotation data from annotators - annotated data will be saved in the `events/` folder (hidden) under working directory
 
-For user instructions, please refer to our [PC Tracker User Manual](./tracker/README.md).
 
-### Post Processing
-
-To convert raw interaction data into cognitive trajectories, follow these steps:
-1. Place your data in the `postprocess/data/` directory. Example data is available in this directory for reference.
-2. Run post-processing pipeline:
-```bash
-python postprocess/refinement.py    # Data refinement
-python postprocess/completion.py    # Cognition completion
-```
-
-Note: You need to prepare your OpenAI API key in advance to perform cognition completion.
-
-### Agent
-
-We provide a reference implementation of our multi-agent system in the `agent/` directory, combining planning and grounding agents. To run:
-
-```bash
-python agent/main.py
-```
-
-Reference scripts for model deployment can be found in `agent/server/`  directory.
-
-## Citation
-
-If you find this work helpful, please consider citing:
-
-```
-@article{he2024pcagent,
-      title={PC Agent: While You Sleep, AI Works - A Cognitive Journey into Digital World},
-      author={Yanheng He and Jiahe Jin and Shijie Xia and Jiadi Su and Runze Fan and Haoyang Zou and Xiangkun Hu and Pengfei Liu},
-      year={2024},
-      journal={arXiv preprint arXiv:2412.17589},
-      url={https://arxiv.org/abs/2412.17589}
-}
-```

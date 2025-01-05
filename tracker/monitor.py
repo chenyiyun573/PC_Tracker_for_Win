@@ -289,6 +289,10 @@ class KeyboardMonitor:
         self.scroll_buffer = scroll_buffer
         self.hotkey_buffer = HotKeyBuffer()
 
+        #Yuantsy Modified
+        self.currently_pressed_keys = set()
+
+
     def start(self):
         self.listener.start()
 
@@ -297,6 +301,14 @@ class KeyboardMonitor:
 
     def on_press(self, key: Key):
         try:
+            #Yuantsy Modification
+            # if key is already in pressed set, ignore repeated press
+            if key in self.currently_pressed_keys:
+                return 
+            # Otherwise, mark it as pressed
+            self.currently_pressed_keys.add(key)
+            #Yuantsy Modifcation End
+
             # Keyboard operation triggers timer and scroll buffer reset
             self.timer.reset()
             self.scroll_buffer.reset()
@@ -380,6 +392,12 @@ class KeyboardMonitor:
             print_debug("error!")
 
     def on_release(self, key: Key):
+        #Yuantsy Modifcation Start
+        #remove the key from currently pressed set. 
+        if key in self.currently_pressed_keys:
+            self.currently_pressed_keys.remove(key)
+        #Yuantsy Modification End
+
         self.hotkey_buffer.pop()
 
 
