@@ -43,3 +43,8 @@ self.currently_pressed_keys.add(key)
 ```
 The Ctrl + A will bring us mutiple press ctrl events which is unnecessary. 
 This version of code is saved as 1.0.0.
+
+
+#### 20260123 0855 PT
+I want to use this PC tracker for easier SOP on computer operation during production bench align process. 
+I changed the wait interval from 6s into 30min in monitor.py to reduce the static png file numbers. 

@@ -6,7 +6,7 @@ from pynput.keyboard import Key
 from recorder import Recorder
 from utils import *
 
-WAIT_INTERVAL = 6  # 6s per wait
+WAIT_INTERVAL = 1800  # 30min per wait
 DOUBLE_CLICK_INTERVAL = 0.5  # 0.5s for double click
 
 HOT_KEY = [
