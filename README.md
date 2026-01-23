@@ -45,6 +45,28 @@ The Ctrl + A will bring us mutiple press ctrl events which is unnecessary.
 This version of code is saved as 1.0.0.
 
 
+
+#### 20260122 1656 PT
+To get the PC tracker.exe on windows: 
+
+
+
+In Anaconda Prompt Terminal on Windows:
+
+
+```shell
+# Clone the repository and navigate to the folder
+git clone https://github.com/chenyiyun573/PC_Tracker_for_Win.git
+cd PC_Tracker_for_Win
+# Create and activate conda environment
+conda env create -f environment.yml
+conda activate pcagent
+
+cd tracker
+.\package.ps1
+```
+
+
 #### 20260123 0855 PT
 I want to use this PC tracker for easier SOP on computer operation during production bench align process. 
 I changed the wait interval from 6s into 30min in monitor.py to reduce the static png file numbers. 
