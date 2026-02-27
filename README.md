@@ -70,3 +70,23 @@ cd tracker
 #### 20260123 0855 PT
 I want to use this PC tracker for easier SOP on computer operation during production bench align process. 
 I changed the wait interval from 6s into 30min in monitor.py to reduce the static png file numbers. 
+
+
+#### 20260226 1634 PT
+
+When Windows sleeps, locks, or the display driver resets, capturing the desktop via DC/BitBlt can transiently fail (or return stale/black frames depending on session state). In your current design, one failure kills the update thread and you never recover
+
+
+I updated the code to make the recording more robust.
+
+This version of code is also saved as 2.0.0
+
+
+In Anaconda PowerShell Prompt:
+```
+conda env create -f environment.yml
+conda activate pcagent
+
+cd tracker
+.\package.ps1
+```
