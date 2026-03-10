@@ -144,6 +144,12 @@ class Recorder:
             self.save(event, rect)
         self.buffer.clear()
 
+        # Stop background screenshot refresh thread before shutdown.
+        try:
+            self.recent_screen.stop()
+        except Exception:
+            pass
+
         # Close process pool
         try:
             self.pool.close()

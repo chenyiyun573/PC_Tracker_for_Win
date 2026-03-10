@@ -103,6 +103,9 @@ class Monitor:
         self.keyboard_monitor.stop()
         self.mouse_monitor.stop()
         self.timer.stop()
+        # Flush any pending buffered actions before final save.
+        self.scroll_buffer.reset()
+        self.type_buffer.reset()
         self.recorder.wait()
 
     def generate_md(self, task=None):

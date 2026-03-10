@@ -206,38 +206,31 @@ class RecentScreen:
             time.sleep(self.capture_interval)
 
     def get(self, with_size: bool = False):
-        """Return the most recent screenshot.
+        """Return the most recent screenshot without blocking input callbacks.
 
-        If the refresh thread stalled or the frame is too old, we do a synchronous capture.
-        This prevents the 'stuck identical screenshot forever' failure mode.
+        Important: event callbacks call into Recorder.get_event(), so doing a full
+        synchronous screen capture here can block keyboard/mouse listener threads
+        and cause bursts of user actions to be missed. We therefore only return the
+        latest cached frame on the caller thread.
+
+        Long-run robustness is still handled by the background refresh thread, which
+        retries forever and recreates the capturer after failures.
         """
         now = time.time()
 
-        # Grab current frame snapshot
         with self._lock:
             frame = self._frame
 
         def _return(frame_obj: ScreenFrame):
             return (frame_obj.bits, frame_obj.size) if with_size else frame_obj.bits
 
-        # If we have a recent frame, return it.
-        if frame is not None and (now - frame.captured_at) <= self.stale_after_seconds:
+        if frame is not None:
+            # Even if stale, returning the last cached frame is better than blocking
+            # the input listener with a direct capture.
             return _return(frame)
 
-        # Otherwise try a direct capture (best-effort).
-        try:
-            new_frame = capturer.capture()
-            with self._lock:
-                self._frame = new_frame
-                self._last_error = None
-            return _return(new_frame)
-        except Exception:
-            self._logger.exception("Synchronous screen capture failed; returning last cached frame")
-            # Return last cached frame if available.
-            if frame is not None:
-                return _return(frame)
-            # As a last resort return empty bytes.
-            return (b"", (0, 0)) if with_size else b""
+        # No frame available yet.
+        return (b"", (0, 0)) if with_size else b""
 
     @property
     def last_error(self) -> Optional[str]:

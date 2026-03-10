@@ -90,3 +90,23 @@ conda activate pcagent
 cd tracker
 .\package.ps1
 ```
+
+
+
+#### 20260310 1550 PT
+The update last time has some bugs that some actions in continous and fast action sequences are missing in the recording result. 
+
+I am trying to fix it this time. 
+
+The code updated by ChatGPT5.4 Pro, check the docs for the prompt. 
+
+Use above command to compile the exe. 
+
+```Anaconda PowerShell
+conda activate pcagent
+
+cd tracker
+.\package.ps1
+```
+
+This version will be saved as 2.0.1
