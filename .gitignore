@@ -1,5 +1,6 @@
 tracker/build/
 tracker/dist/
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 
