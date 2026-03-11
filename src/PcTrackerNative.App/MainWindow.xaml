@@ -1,0 +1,227 @@
+<Window x:Class="PcTrackerNative.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PC Tracker Native"
+        Height="780"
+        Width="1120"
+        MinHeight="700"
+        MinWidth="980"
+        WindowStartupLocation="CenterScreen"
+        Background="#FFF7F7F9">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Padding="18" CornerRadius="12" Background="White" BorderBrush="#FFE0E0E0" BorderThickness="1">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Left">
+                    <TextBlock Text="PC Tracker Native" FontSize="24" FontWeight="Bold" Foreground="#FF1F2937" />
+                    <TextBlock x:Name="StatusTextBlock"
+                               Margin="0,6,0,0"
+                               Text="Ready."
+                               FontSize="13"
+                               Foreground="#FF4B5563" />
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="OpenOutputButton"
+                            Width="160"
+                            Height="34"
+                            Margin="8,0,0,0"
+                            Content="Open Output Folder"
+                            Click="OpenOutputButton_Click" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Row="1" Margin="0,12,0,12" Padding="14" CornerRadius="12" Background="White" BorderBrush="#FFE0E0E0" BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="Capture backend: " FontWeight="SemiBold" Foreground="#FF374151" />
+                    <TextBlock x:Name="CaptureBackendTextBlock" Foreground="#FF111827" />
+                    <TextBlock Margin="20,0,0,0" Text="Session timer: " FontWeight="SemiBold" Foreground="#FF374151" />
+                    <TextBlock x:Name="SessionTimerTextBlock" Foreground="#FF111827" />
+                    <TextBlock Margin="20,0,0,0" Text="Wait interval: " FontWeight="SemiBold" Foreground="#FF374151" />
+                    <TextBlock x:Name="WaitIntervalPreviewTextBlock" Foreground="#FF111827" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button x:Name="FinishButton"
+                            Width="120"
+                            Height="34"
+                            Margin="8,0,0,0"
+                            Content="Finish"
+                            Visibility="Collapsed"
+                            Click="FinishButton_Click" />
+                    <Button x:Name="FailButton"
+                            Width="100"
+                            Height="34"
+                            Margin="8,0,0,0"
+                            Content="Fail"
+                            Visibility="Collapsed"
+                            Click="FailButton_Click" />
+                    <Button x:Name="DiscardButton"
+                            Width="100"
+                            Height="34"
+                            Margin="8,0,0,0"
+                            Content="Discard"
+                            Visibility="Collapsed"
+                            Click="DiscardButton_Click" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <TabControl x:Name="ModeTabControl" Grid.Row="2">
+            <TabItem Header="Given Task">
+                <Grid Margin="18">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="GivenTaskCounterTextBlock"
+                               FontSize="14"
+                               Foreground="#FF4B5563"
+                               Text="Pending tasks: 0" />
+
+                    <Border Grid.Row="1" Margin="0,12,0,12" Padding="16" CornerRadius="10" Background="#FFF9FAFB" BorderBrush="#FFE5E7EB" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock x:Name="GivenTaskCategoryTextBlock"
+                                       FontSize="15"
+                                       FontWeight="Bold"
+                                       Foreground="#FF111827"
+                                       Text="Category" />
+                            <TextBox x:Name="GivenTaskDescriptionTextBox"
+                                     Margin="0,10,0,0"
+                                     IsReadOnly="True"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalScrollBarVisibility="Auto"
+                                     MinHeight="240" />
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Grid.Row="2"
+                               VerticalAlignment="Top"
+                               Foreground="#FF6B7280"
+                               Text="The app minimizes when recording starts. Restore it from the taskbar to finish, fail, or discard." />
+
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,18,0,0">
+                        <Button x:Name="PreviousTaskButton" Width="120" Height="36" Margin="6" Content="Previous" Click="PreviousTaskButton_Click" />
+                        <Button x:Name="NextTaskButton" Width="120" Height="36" Margin="6" Content="Next" Click="NextTaskButton_Click" />
+                        <Button x:Name="BadTaskButton" Width="120" Height="36" Margin="6" Content="Bad Task" Click="BadTaskButton_Click" />
+                        <Button x:Name="StartGivenTaskButton" Width="160" Height="36" Margin="6" Content="Start Given Task" Click="StartGivenTaskButton_Click" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Free Task">
+                <Grid Margin="18">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="#FF111827"
+                               Text="Free Task Mode" />
+                    <TextBlock Grid.Row="1"
+                               Margin="0,12,0,0"
+                               TextWrapping="Wrap"
+                               Foreground="#FF4B5563"
+                               Text="Freely use the PC and summarize what you actually did after the recording stops. Screenshots and action events are saved locally." />
+                    <Button x:Name="StartFreeTaskButton"
+                            Grid.Row="2"
+                            Width="160"
+                            Height="36"
+                            HorizontalAlignment="Center"
+                            Margin="0,18,0,0"
+                            Content="Start Free Task"
+                            Click="StartFreeTaskButton_Click" />
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Non-Task">
+                <Grid Margin="18">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock FontSize="15"
+                               FontWeight="SemiBold"
+                               Foreground="#FF111827"
+                               Text="Non-Task Mode" />
+                    <TextBlock Grid.Row="1"
+                               Margin="0,12,0,0"
+                               TextWrapping="Wrap"
+                               Foreground="#FF4B5563"
+                               Text="Use this mode for general capture without an explicit task assignment. You can still add a final description when you stop." />
+                    <Button x:Name="StartNonTaskButton"
+                            Grid.Row="2"
+                            Width="160"
+                            Height="36"
+                            HorizontalAlignment="Center"
+                            Margin="0,18,0,0"
+                            Content="Start Non-Task"
+                            Click="StartNonTaskButton_Click" />
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Settings">
+                <Grid Margin="18">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="Wait interval (seconds)" />
+                    <TextBox x:Name="WaitIntervalTextBox" Grid.Row="0" Grid.Column="1" Width="120" Text="6" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,14,0,0" VerticalAlignment="Center" Text="Capture frame interval (ms)" />
+                    <TextBox x:Name="CaptureFrameIntervalTextBox" Grid.Row="1" Grid.Column="1" Margin="0,14,0,0" Width="120" Text="180" />
+
+                    <CheckBox x:Name="PreferModernCaptureCheckBox"
+                              Grid.Row="2"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              Margin="0,14,0,0"
+                              IsChecked="True"
+                              Content="Prefer Windows.Graphics.Capture, then fall back to GDI if needed" />
+
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="3"
+                               Margin="0,18,0,0"
+                               TextWrapping="Wrap"
+                               Foreground="#FF4B5563"
+                               Text="Recommended defaults: wait interval 6 seconds, capture frame interval 150-250 ms. Longer wait intervals create fewer idle snapshots but make the timeline feel sparser." />
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <TextBlock x:Name="FooterTextBlock"
+                   Grid.Row="3"
+                   Margin="0,12,0,0"
+                   Foreground="#FF6B7280"
+                   TextWrapping="Wrap"
+                   Text="Output folder: %LocalAppData%\PcTrackerNative\events" />
+    </Grid>
+</Window>

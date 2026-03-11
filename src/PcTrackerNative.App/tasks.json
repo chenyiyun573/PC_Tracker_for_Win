@@ -1,0 +1,20 @@
+[
+  {
+    "category": "File Explorer",
+    "description": "Open File Explorer, create a folder on the Desktop named SOP Demo, then rename it to SOP Demo Final.",
+    "isDone": false,
+    "isBad": false
+  },
+  {
+    "category": "Notepad",
+    "description": "Open Notepad, type three short lines that describe a process step, save the file to the Desktop, then close Notepad.",
+    "isDone": false,
+    "isBad": false
+  },
+  {
+    "category": "Browser",
+    "description": "Open a browser, visit a website you use for work, scroll the page, open a link in a new tab, then return to the original tab.",
+    "isDone": false,
+    "isBad": false
+  }
+]
