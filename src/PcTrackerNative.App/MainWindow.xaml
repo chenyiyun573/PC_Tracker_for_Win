@@ -1,0 +1,257 @@
+<Window x:Class="PcTrackerNative.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PC Tracker Native"
+        Height="520"
+        Width="560"
+        MinHeight="480"
+        MinWidth="520"
+        Background="#FFF4F7FB"
+        Icon="Assets/AppIcon-256.png">
+    <Window.Resources>
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Padding" Value="14" />
+            <Setter Property="Margin" Value="0,0,0,14" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="#FFE5E7EB" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="14" />
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="36" />
+            <Setter Property="Padding" Value="18,0" />
+            <Setter Property="Margin" Value="8,0,0,0" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FF374151" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="HintStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FF6B7280" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </Window.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="18">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Style="{StaticResource CardStyle}" Padding="16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Width="54"
+                            Height="54"
+                            CornerRadius="16"
+                            Background="#FFF3F4F6"
+                            BorderBrush="#FFE5E7EB"
+                            BorderThickness="1">
+                        <Image Width="34"
+                               Height="34"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Source="Assets/AppIcon-256.png"
+                               Stretch="Uniform" />
+                    </Border>
+
+                    <StackPanel Grid.Column="1" Margin="14,0,0,0">
+                        <TextBlock Text="PC Tracker Native"
+                                   FontSize="22"
+                                   FontWeight="Bold"
+                                   Foreground="#FF111827" />
+                        <TextBlock Margin="0,6,0,0"
+                                   Style="{StaticResource HintStyle}"
+                                   Text="One small recorder, one workflow. Start, stop, and save into your own folder. Markdown grows live together with JSONL and screenshots." />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="1" Style="{StaticResource CardStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource LabelStyle}" Text="Recording" />
+                        <TextBlock Margin="0,6,0,0"
+                                   Style="{StaticResource HintStyle}"
+                                   Text="Use Stop to finish and save the current session. The app keeps the workflow simple: there is no extra task mode or save dialog." />
+                    </StackPanel>
+
+                    <Button x:Name="StartButton"
+                            Grid.Column="1"
+                            Width="120"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Content="Start"
+                            Click="StartButton_Click" />
+                    <Button x:Name="StopButton"
+                            Grid.Column="2"
+                            Width="120"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Content="Stop"
+                            IsEnabled="False"
+                            Click="StopButton_Click" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="2" Style="{StaticResource CardStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Output folder" />
+                    <TextBox x:Name="OutputFolderTextBox"
+                             Grid.Row="0"
+                             Grid.Column="1"
+                             Margin="12,0,0,0"
+                             MinWidth="250"
+                             VerticalContentAlignment="Center"
+                             TextChanged="OutputFolderTextBox_TextChanged" />
+                    <Button x:Name="BrowseOutputButton"
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Width="90"
+                            Height="32"
+                            Margin="8,0,0,0"
+                            Content="Browse"
+                            Click="BrowseOutputButton_Click" />
+                    <Button x:Name="OpenOutputButton"
+                            Grid.Row="0"
+                            Grid.Column="3"
+                            Width="90"
+                            Height="32"
+                            Margin="8,0,0,0"
+                            Content="Open"
+                            Click="OpenOutputButton_Click" />
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="4"
+                               Margin="0,10,0,0"
+                               Style="{StaticResource HintStyle}"
+                               Text="A new timestamp folder is created for each session. Exception logs are also written under this output root, in the logs subfolder." />
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="3" Style="{StaticResource CardStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="185" />
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Settings" />
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               Grid.ColumnSpan="2"
+                               Margin="0,0,0,0"
+                               Style="{StaticResource HintStyle}"
+                               Text="These settings stay only in this window. Nothing is written to %LocalAppData%." />
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Margin="0,12,0,0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Wait interval (seconds)" />
+                    <TextBox x:Name="WaitIntervalTextBox"
+                             Grid.Row="1"
+                             Grid.Column="1"
+                             Margin="0,12,0,0"
+                             Width="100" />
+
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Margin="0,12,0,0"
+                               Style="{StaticResource LabelStyle}"
+                               Text="Capture frame interval (ms)" />
+                    <TextBox x:Name="CaptureFrameIntervalTextBox"
+                             Grid.Row="2"
+                             Grid.Column="1"
+                             Margin="0,12,0,0"
+                             Width="100" />
+
+                    <CheckBox x:Name="PreferModernCaptureCheckBox"
+                              Grid.Row="3"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="3"
+                              Margin="0,12,0,0"
+                              Content="Prefer Windows.Graphics.Capture, then fall back to GDI" />
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="4" Style="{StaticResource CardStyle}" Margin="0,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0">
+                        <TextBlock Text="Capture backend" FontWeight="SemiBold" Foreground="#FF374151" />
+                        <TextBlock x:Name="CaptureBackendTextBlock" Margin="0,6,0,0" Foreground="#FF111827" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="0" Grid.Column="1">
+                        <TextBlock Text="Session timer" FontWeight="SemiBold" Foreground="#FF374151" />
+                        <TextBlock x:Name="SessionTimerTextBlock" Margin="0,6,0,0" Foreground="#FF111827" Text="00:00:00" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,14,0,0">
+                        <TextBlock Text="Status" FontWeight="SemiBold" Foreground="#FF374151" />
+                        <TextBlock x:Name="StatusTextBlock"
+                                   Margin="0,6,0,0"
+                                   Foreground="#FF374151"
+                                   TextWrapping="Wrap"
+                                   Text="Ready." />
+                        <TextBlock x:Name="FooterTextBlock"
+                                   Margin="0,8,0,0"
+                                   Foreground="#FF6B7280"
+                                   TextWrapping="Wrap"
+                                   Text="Logs: ..." />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Window>
